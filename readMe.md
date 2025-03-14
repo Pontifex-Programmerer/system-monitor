@@ -36,3 +36,23 @@ graph TD;
         
         F --> I
     end
+```mermaid
+graph TD;
+    subgraph logger.js
+        A[module loaded] --> B[intModule]
+        B --> C{hasLogFiles}
+        
+        C -- No --> D[createFiles()]
+        D --> C
+        
+        C -- Yes --> E[writeStartupEntry]
+        E --> F[await calls]
+        F --> G[onWriteLogs]
+        
+        G --> H{isError}
+        H -- Yes --> I[writeErrorLog]
+        H -- No --> J[writeSystemLog]
+        
+        I --> K[(Hard disk)]
+        J --> K
+    end
